@@ -1,0 +1,88 @@
+
+
+- Get website working locally - HTML, CSS, Django, JavaScript
+- AWS EC2 - Set up a server for hosting our website. Use git and Linux to upload website
+- Linux used to configure our Django settings for browser access - Get website live
+- Use Gunicorn and Nginx to keep website running by its self - Don't have to keep saying run server in linux...
+- Use google domains to purchase a domain and make website live
+
+
+AWS EC2 - Elasticated 
+--------
+
+- We need to setup the website on a remote computer, so website is always availiable if required
+- Select launch instance
+- Select OS - Select free tier one
+- make sure you have London selected top right
+- Select memeory options - free tier (for now)
+- Create new keys, save file somewhere safe
+- The instance Takes two minutes to create 
+
+- CD to the folder where the keys are stored and run - ssh -i ubantu-key-london.pem ubuntu@ec2-3-10-23-24.eu-west-2.compute.amazonaws.com - # This will vary depending on instance
+
+- Note -i means we arre stipulating the security key
+
+- You will then be in Ubuntu, commands such as, pwd will work now
+
+- Can use putty instead
+
+
+Moving ML models between machines
+---------------------------------
+
+- See video if required
+
+
+Transferring files onto AWS
+---------------------------
+
+- Can use WinSCP - FTP or SFTP or CMD
+
+
+See earlier documentation on git for early commands
+
+C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\ML_Project\titanic_ml>git status
+On branch master
+nothing to commit, working tree clean
+
+C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\ML_Project\titanic_ml>git push -u origin master
+Enumerating objects: 22, done.
+Counting objects: 100% (22/22), done.
+Delta compression using up to 16 threads...
+
+C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\ML_Project\titanic_ml>cd../
+
+C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\ML_Project>cd C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\secure_keys
+
+C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\secure_keys>ssh -i ubantu-key-london.pem ubuntu@ec2-3-10-118-57.eu-west-2.compute.amazonaws.com  # connecting to EWS...
+The authenticity of host 'ec2-3-10-118-57.eu-west-2.compute.amazonaws.com (3.10.118.57)' can't be established.
+ECDSA key fingerprint is SHA256:MN1RJMia65RfFPiSB/9quqcejN/9fcD7Rip/5P0n3dk.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added 'ec2-3-10-118-57.eu-west-2.compute.amazonaws.com,3.10.118.57' (ECDSA) to the list of known hosts......
+
+
+ubuntu@ip-172-31-21-226:~$ git clone https://github.com/dancfc84/unaicorn.git # Clone files in github to our EWS instance
+Cloning into 'unaicorn'...
+remote: Enumerating objects: 22, done.
+remote: Counting objects: 100% (22/22), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 22 (delta 1), reused 22 (delta 1), pack-reused 0.....
+
+
+Updates for EWS
+---------------
+
+- sudo apt-get update
+- sudo apt-get install python3-pip python3-dev libpq-dev postgresql # Install pip python etc on EWS instance
+- pip3 install django gunicorn psycopg2 sklearn #Installs all the python libraries we need
+
+Create security group in EWS Instance
+--------------------------------------
+
+- Left sidebar in instance menu - Network and Security - Security Groups
+- 
+
+
+
+
