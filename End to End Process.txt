@@ -18,7 +18,7 @@ AWS EC2 - Elasticated
 - Create new keys, save file somewhere safe
 - The instance Takes two minutes to create 
 
-- CD to the folder where the keys are stored and run - ssh -i ubantu-key-london.pem ubuntu@ec2-3-10-23-24.eu-west-2.compute.amazonaws.com - # This will vary depending on instance
+- CD to the folder where the keys are stored and run - ssh -i ubantu-key-london.pem ubuntu@ec2-18-133-222-129.eu-west-2.compute.amazonaws.com - # This will vary depending on instance
 
 - Note -i means we arre stipulating the security key
 
@@ -59,7 +59,8 @@ The authenticity of host 'ec2-3-10-118-57.eu-west-2.compute.amazonaws.com (3.10.
 ECDSA key fingerprint is SHA256:MN1RJMia65RfFPiSB/9quqcejN/9fcD7Rip/5P0n3dk.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? y
 Please type 'yes', 'no' or the fingerprint: yes
-Warning: Permanently added 'ec2-3-10-118-57.eu-west-2.compute.amazonaws.com,3.10.118.57' (ECDSA) to the list of known hosts......
+
+IMPORTANT !!! If this doesn't work its due to security options on your secure key in your local folder....
 
 
 ubuntu@ip-172-31-21-226:~$ git clone https://github.com/dancfc84/unaicorn.git # Clone files in github to our EWS instance
