@@ -1,0 +1,11 @@
+server {
+    listen 80;
+    server_name 52.214.164.30;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/unaicorn/ML_Project/titanic_ml.sock;
+    }
+}

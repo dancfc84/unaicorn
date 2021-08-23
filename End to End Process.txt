@@ -54,7 +54,7 @@ C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\ML_Project\titanic_ml>c
 
 C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\ML_Project>cd C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\secure_keys
 
-C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\secure_keys>ssh -i ubantu-key-london.pem ubuntu@ec2-3-10-118-57.eu-west-2.compute.amazonaws.com  # connecting to EWS...
+C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website\secure_keys>ssh -i ubantu-ire-key.pem ubuntuec2-52-214-222-154.eu-west-1.compute.amazonaws.com  # connecting to EWS...
 The authenticity of host 'ec2-3-10-118-57.eu-west-2.compute.amazonaws.com (3.10.118.57)' can't be established.
 ECDSA key fingerprint is SHA256:MN1RJMia65RfFPiSB/9quqcejN/9fcD7Rip/5P0n3dk.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? y
@@ -76,14 +76,77 @@ Updates for EWS
 
 - sudo apt-get update
 - sudo apt-get install python3-pip python3-dev libpq-dev postgresql # Install pip python etc on EWS instance
-- pip3 install django gunicorn psycopg2 sklearn #Installs all the python libraries we need
+- pip3 install django gunicorn psycopg2 sklearn #Installs all the python libraries we need inc gunicorn
 
 Create security group in EWS Instance
 --------------------------------------
 
 - Left sidebar in instance menu - Network and Security - Security Groups
-- 
+- Add in a security group with port number you wish to use, and 0.0.0.0/0
+- Add it to your instance
 
+- In settings file / ALLOWED_HOSTS = [] add in external IP address in quotes '39.45.333.65'
+
+- Then cd to folder with manage.py in, then python3 manage.py runserver 0.0.0.0:8000
+
+Gunicorn -allows it to keep working without having to have runserver running - allows web servers to forward requests to web aplications or frameworks written in python
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Syntax = gunicorn --bind 0.0.0.0:8000 titanic_ml.wsgi
+
+IF YOU GET PORT IN USE ERROR - sudo fuser -k 8000/tcp - Run that in ubantu
+
+
+You need to add in the gunicorn config file here - sudo vim /etc/systemd/system/gunicorn.service - config file is C:\Users\danwh\Sync\Web Dev Files\12. ML Project Website
+
+
+sudo systemctl start gunicorn
+
+sudo systemctl enable  gunicorn
+
+sudo systemctl status  gunicorn # Check its ok
+
+If you have to change the gunicorn config or any html, JS, python run this command = sudo systemctl daemon-reload
+
+- To check it has worked you can see if a .sock file has been created in the folder
+
+Nginx - https://www.udemy.com/course/unaicorn/learn/lecture/14923868#questions/12994126
+-----
+
+Is a reverse proxy - Typically sits behind the firewall of private network - directs client requests to the appropriate server..speeds up the services
+
+How to install:
+
+sudo apt update
+sudo apt install nginx
+
+sudo vim /etc/nginx/sites-available/titanic_ml - save contents of nginx config file in here, only include static and media if you have css and pictures
+
+sudo ln -s /etc/nginx/sites-available/titanic_ml/etc/nginx/sites-enabled - enable
+
+rm /etc/nginx/sites-available/titanic_ml/etc/nginx/sites-enabled - if mistake made this removes then re-add
+
+sudo nginx -t - Checks if it is ok
+
+Remove the port 8000
+---------------------
+
+sudo ufw delete allow 8000
+sudo ufw allow 'Nginx Full' - give nginx full access
+
+
+Ubantu Commands
+---------------
+
+- rm textfile - Remove file
+- rm -rf unaicorn Remove directory
+
+- cd .. - Go up a file directory 
+
+- cont + R = Reverse search, great command
+
+- :wq = save and quit
+- :q! = quit without saving
 
 
 
